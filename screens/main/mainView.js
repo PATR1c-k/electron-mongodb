@@ -26,8 +26,8 @@ const gotEmployees = (employees) => {
     <td>${employee.name}</td>
     <td>${employee.position}</td>
     <td>${employee.salary}</td>
-    <td><input type="button" onclick="Delete('${employee.id}')" value="Delete" /></td>
-    <td><input type="button" onclick="Edit('${employee.id}')" value="Edit Employee" /></td>
+    <td><input type="button" class="button is-danger is-small" onclick="Delete('${employee.id}')" value="Delete" /></td>
+    <td><input type="button" class="button is-primary is-small" onclick="Edit('${employee.id}')" value="Edit Employee" /></td>
     <tr>`;
 
       return res;
