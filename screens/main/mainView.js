@@ -64,7 +64,7 @@ const btnSaveClick = (event) => {
   } else {
     window.api.updateEmployee(empId, { name, position, salary });
   }
-  window.api.getEmployees();  //testing
+  window.api.getEmployees(); //testing
 };
 
 const gotDeletedResult = (result) => {

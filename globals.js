@@ -1,4 +1,4 @@
-const URI = "mongodb://localhost:27017";
+const URI = "mongodb+srv://pratik:test123@cluster0.am5xmqs.mongodb.net/";
 const DB_NAME = "employeeData";
 
 module.exports = {
