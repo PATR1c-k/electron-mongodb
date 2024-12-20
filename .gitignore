@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # hiding globals
-./globals.js
+globals.js
