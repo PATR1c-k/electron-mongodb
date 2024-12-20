@@ -43,7 +43,25 @@ class Employees {
     console.log(`employee.js > addEmployee : ${employee}`);
 
     const employees = await this.#getCollection();
-    return await employees.insertOne(employees);
+    return await employees.insertOne(employee);
+  };
+
+  updateEmployee = async (id, employee) => {
+    console.log(`Employee.js > updateEmployee:${employee}`);
+
+    const employees = await this.#getCollection();
+    return await employees.updateOne(
+      { _id: new ObjectID(id) },
+      { $set: employee }
+    );
+  };
+
+  deleteEmployee = async (id) => {
+    console.log(`Employee.js > deleteEmployee : ${id}`);
+
+    const employees = await this.#getCollection();
+    const res = await employees.deleteOne({ _id: new ObjectID(id) });
+    return res.deletedCount > 0;
   };
 }
 

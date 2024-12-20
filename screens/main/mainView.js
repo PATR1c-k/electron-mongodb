@@ -1,8 +1,8 @@
 window.addEventListener("load", () => {
-  // event handelling for buttons
+  // event handelling
   // save button
-  // const btnSave = document.getElementById("btnSave");
-  // btnSave.addEventListener("click", btnSaveClick);
+  const btnSave = document.getElementById("btnSave");
+  btnSave.addEventListener("click", btnSaveClick);
 
   // get button
   const btnGet = document.getElementById("btnGet");
@@ -10,13 +10,15 @@ window.addEventListener("load", () => {
 
   // callbacks
   window.api.gotEmployees(gotEmployees);
+  window.api.gotEmployeeUpdatedResult(gotEmployeeUpdatedResult);
+  window.api.gotDeletedResult(gotDeletedResult);
 });
 
 let employeeData = {};
 
 const gotEmployees = (employees) => {
   employeeData = employees;
-  console.log("mainview > gotEmployees");
+  console.log("mainview  gotEmployees");
 
   var empData = employees
     .map((employee) => {
@@ -42,28 +44,14 @@ const btnGetClick = (event) => {
   window.api.getEmployees(); //fucn is in mainpreload.js
 };
 
-function Edit(empId) {
-  const emp = employeeData.find((employee) => employee.id == empId);
-
-  const inputId = document.getElementById("empId");
-  const name = document.getElementById("name");
-  const position = document.getElementById("position");
-  const salary = document.getElementById("salary");
-
-  inputId.value = empId;
-  name.value = name;
-  position.value = position;
-  salary.value = emp.salary;
-}
-
 const btnSaveClick = (event) => {
   console.log("Save button clicked");
   event.preventDefault();
 
-  const name = document.getElementById("name").value();
-  const position = document.getElementById("position").value();
-  const salary = document.getElementById("salary").value();
-  const empId = document.getElementById("empId").value();
+  const name = document.getElementById("name").value;
+  const position = document.getElementById("position").value;
+  const salary = document.getElementById("salary").value;
+  const empId = document.getElementById("empId").value;
 
   console.log(
     `Salary: ${salary} , Name:${name}, Position : ${position}, empId:${empId}`
@@ -75,5 +63,40 @@ const btnSaveClick = (event) => {
     });
   } else {
     window.api.updateEmployee(empId, { name, position, salary });
+  }
+  window.api.getEmployees();  //testing
+};
+
+const gotDeletedResult = (result) => {
+  if (result) {
+    alert("Record deleted successfully");
+  }
+  window.api.getEmployees(); //testing
+};
+
+// Delete button
+function Delete(empId) {
+  console.log(`mainView > Delete : ${empId}`);
+  window.api.deleteEmployees(empId);
+}
+
+// Edit button
+function Edit(empId) {
+  const emp = employeeData.find((employee) => employee.id === empId);
+
+  const inputId = document.getElementById("empId");
+  const name = document.getElementById("name");
+  const position = document.getElementById("position");
+  const salary = document.getElementById("salary");
+
+  inputId.value = empId;
+  name.value = emp.name;
+  position.value = emp.position;
+  salary.value = emp.salary;
+}
+
+const gotEmployeeUpdatedResult = (result) => {
+  if (result) {
+    window.api.getEmployees();
   }
 };
